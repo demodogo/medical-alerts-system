@@ -1,0 +1,22 @@
+# Java / Spring
+target/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Environment files
+.env
+.env.local
+application-local.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Angular 
+node_modules/
+dist/
+.angular/
