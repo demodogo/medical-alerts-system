@@ -3,12 +3,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { AlertsService } from '../../core/services/alerts';
+import { PatientsService } from '../../core/services/patients';
 import {
   AlertSeverity,
   AlertStatus,
   MedicalAlert,
   MedicalAlertRequest,
 } from '../../shared/models/alert.model';
+import { Patient } from '../../shared/models/patient.model';
 
 @Component({
   selector: 'app-alerts',
@@ -20,7 +22,10 @@ import {
 export class Alerts implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly alertsService = inject(AlertsService);
+  private readonly patientsService = inject(PatientsService);
+
   alerts: MedicalAlert[] = [];
+  patients: Patient[] = [];
   selectedAlertId: number | null = null;
   errorMessage = '';
   successMessage = '';
@@ -55,7 +60,7 @@ export class Alerts implements OnInit {
 
   readonly statusTranslations: Record<AlertStatus, string> = {
     OPEN: 'Abierta',
-    ACKNOWLEDGED: 'Reconocida',
+    ACKNOWLEDGED: 'Recibido',
     CLOSED: 'Cerrada',
   };
 
@@ -71,7 +76,30 @@ export class Alerts implements OnInit {
   });
 
   ngOnInit(): void {
+    this.loadPatients();
     this.loadAlerts();
+  }
+
+  loadPatients(): void {
+    const accessToken = this.getAccessToken();
+
+    if (!accessToken) {
+      return;
+    }
+
+    this.patientsService.findAll(accessToken).subscribe({
+      next: (patients) => {
+        this.patients = patients;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  getPatientName(patientId: number): string {
+    const patient = this.patients.find((p) => p.id === patientId);
+    return patient ? patient.fullName : `Paciente ${patientId}`;
   }
 
   loadAlerts(): void {

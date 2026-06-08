@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   patients: unknown[] = [];
   accessToken = '';
   errorMessage = '';
+  isInitialized = false;
 
   constructor(
     private readonly msalService: MsalService,
@@ -40,6 +41,12 @@ export class AppComponent implements OnInit {
 
       if (result?.accessToken) {
         this.accessToken = result.accessToken;
+        localStorage.setItem('medical_alerts_access_token', result.accessToken);
+        this.isInitialized = true;
+      } else if (this.account) {
+        this.getToken();
+      } else {
+        this.isInitialized = true;
       }
     });
   }
@@ -68,9 +75,8 @@ export class AppComponent implements OnInit {
   }
 
   logout(): void {
-    this.msalService.loginRedirect({
-      scopes: [azureB2cConfig.apiScope],
-    });
+    localStorage.removeItem('medical_alerts_access_token');
+    this.msalService.logoutRedirect();
   }
 
   requestApiToken(): void {
@@ -142,6 +148,7 @@ export class AppComponent implements OnInit {
 
     if (!account) {
       this.errorMessage = 'No active account found';
+      this.isInitialized = true;
       return;
     }
 
@@ -154,10 +161,12 @@ export class AppComponent implements OnInit {
         next: (result) => {
           this.accessToken = result.accessToken;
           localStorage.setItem('medical_alerts_access_token', result.accessToken);
+          this.isInitialized = true;
         },
         error: (error) => {
           this.errorMessage = 'Could not acquire access token';
           console.error(error);
+          this.isInitialized = true;
         },
       });
   }

@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
+import { PatientsService } from '../../core/services/patients';
 import { VitalSignsService } from '../../core/services/vital-signs';
+import { Patient } from '../../shared/models/patient.model';
 import { VitalSign, VitalSignRequest } from '../../shared/models/vital-sign.model';
 
 @Component({
@@ -15,8 +17,10 @@ import { VitalSign, VitalSignRequest } from '../../shared/models/vital-sign.mode
 export class VitalSigns implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
   private readonly vitalSignsService = inject(VitalSignsService);
+  private readonly patientsService = inject(PatientsService);
 
   vitalSigns: VitalSign[] = [];
+  patients: Patient[] = [];
   selectedVitalSignId: number | null = null;
   errorMessage = '';
   successMessage = '';
@@ -31,7 +35,30 @@ export class VitalSigns implements OnInit {
   });
 
   ngOnInit(): void {
+    this.loadPatients();
     this.loadVitalSigns();
+  }
+
+  loadPatients(): void {
+    const accessToken = this.getAccessToken();
+
+    if (!accessToken) {
+      return;
+    }
+
+    this.patientsService.findAll(accessToken).subscribe({
+      next: (patients) => {
+        this.patients = patients;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  getPatientName(patientId: number): string {
+    const patient = this.patients.find((p) => p.id === patientId);
+    return patient ? patient.fullName : `Paciente ${patientId}`;
   }
 
   loadVitalSigns(): void {
