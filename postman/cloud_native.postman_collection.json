@@ -678,6 +678,16 @@
       ]
     }
   ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
   "event": [
     {
       "listen": "prerequest",
@@ -738,8 +748,11 @@
     },
     {
       "key": "bffBaseUrl",
-      "value": "",
-      "type": "default"
+      "value": ""
+    },
+    {
+      "key": "accessToken",
+      "value": ""
     }
   ]
 }
