@@ -15,17 +15,17 @@
         </div>
 
         <div class="flex items-center space-x-4">
-          <div class="hidden md:flex items-center space-x-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200/50">
+          <div *ngIf="account" class="hidden md:flex items-center space-x-2 bg-slate-100/80 px-3 py-1.5 rounded-lg border border-slate-200/50">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <span class="text-xs font-medium text-slate-600">B2C Session:</span>
             <span class="text-xs font-semibold text-slate-800">{{ userDisplayName }}</span>
           </div>
 
           <div class="flex items-center space-x-2">
-            <button type="button" (click)="login()" class="px-3.5 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-lg shadow-sm transition-all duration-200 cursor-pointer">
+            <button *ngIf="!account" type="button" (click)="login()" class="px-3.5 py-2 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 rounded-lg shadow-sm transition-all duration-200 cursor-pointer">
               Iniciar Sesión
             </button>
-            <button type="button" (click)="logout()" class="px-3.5 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 rounded-lg transition-all duration-200 cursor-pointer">
+            <button *ngIf="account" type="button" (click)="logout()" class="px-3.5 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 rounded-lg transition-all duration-200 cursor-pointer">
               Cerrar Sesión
             </button>
           </div>
