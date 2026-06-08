@@ -31,3 +31,27 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Java / Spring
+target/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Environment
+.env
+.env.local
+application-local.yml
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
+
+# OS
+.DS_Store
+Thumbs.db
