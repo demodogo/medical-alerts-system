@@ -1,0 +1,745 @@
+{
+  "info": {
+    "_postman_id": "cfcf2fc0-9a67-4f48-afc4-197c658cfab1",
+    "name": "cloud native",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "31766189"
+  },
+  "item": [
+    {
+      "name": "patients-ms",
+      "item": [
+        {
+          "name": "post patient",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"clinicalIdentifier\": \"{{CLINICALID}}\",\r\n    \"room\": \"{{ROOMCODE}}\",\r\n    \"status\": \"CRITICAL\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{patientsBaseUrl}}/patients",
+              "host": [
+                "{{patientsBaseUrl}}"
+              ],
+              "path": [
+                "patients"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list patients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{patientsBaseUrl}}/patients",
+              "host": [
+                "{{patientsBaseUrl}}"
+              ],
+              "path": [
+                "patients"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{patientsBaseUrl}}/patients/3",
+              "host": [
+                "{{patientsBaseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete patient",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{patientsBaseUrl}}/patients/4",
+              "host": [
+                "{{patientsBaseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update patient",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"clinicalIdentifier\": \"{{CLINICALID}}\",\r\n    \"room\": \"{{ROOMCODE}}\",\r\n    \"status\": \"CRITICAL\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{patientsBaseUrl}}/patients/5",
+              "host": [
+                "{{patientsBaseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "clinical-ms",
+      "item": [
+        {
+          "name": "vitals",
+          "item": [
+            {
+              "name": "post vital signs",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"patientId\": 3,\r\n    \"heartRate\": 100,\r\n    \"oxygenSaturation\": 100,\r\n    \"temperature\": 35.5,\r\n    \"systolicPressure\": 134,\r\n    \"diastolicPressure\": 86\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{clinicalBaseUrl}}/vital-signs",
+                  "host": [
+                    "{{clinicalBaseUrl}}"
+                  ],
+                  "path": [
+                    "vital-signs"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get vital signs",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"patientId\": 2,\r\n    \"heartRate\": 120,\r\n    \"oxygenSaturation\": 100,\r\n    \"temperature\": 37.5,\r\n    \"systolicPressure\": 145,\r\n    \"diastolicPressure\": 95\r\n}"
+                },
+                "url": {
+                  "raw": "{{clinicalBaseUrl}}/vital-signs",
+                  "host": [
+                    "{{clinicalBaseUrl}}"
+                  ],
+                  "path": [
+                    "vital-signs"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get vitals by id",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"patientId\": 2,\r\n    \"heartRate\": 120,\r\n    \"oxygenSaturation\": 100,\r\n    \"temperature\": 37.5,\r\n    \"systolicPressure\": 145,\r\n    \"diastolicPressure\": 95\r\n}"
+                },
+                "url": {
+                  "raw": "{{clinicalBaseUrl}}/vital-signs/1",
+                  "host": [
+                    "{{clinicalBaseUrl}}"
+                  ],
+                  "path": [
+                    "vital-signs",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get by patient id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{clinicalBaseUrl}}/vital-signs/patient/2",
+                  "host": [
+                    "{{clinicalBaseUrl}}"
+                  ],
+                  "path": [
+                    "vital-signs",
+                    "patient",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "put vitals",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"patientId\": 2,\r\n    \"heartRate\": 120,\r\n    \"oxygenSaturation\": 98,\r\n    \"temperature\": 37.5,\r\n    \"systolicPressure\": 142,\r\n    \"diastolicPressure\": 85\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{clinicalBaseUrl}}/vital-signs/1",
+                  "host": [
+                    "{{clinicalBaseUrl}}"
+                  ],
+                  "path": [
+                    "vital-signs",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "alerts",
+          "item": [
+            {
+              "name": "get alerts",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{clinicalBaseUrl}}/alerts",
+                  "host": [
+                    "{{clinicalBaseUrl}}"
+                  ],
+                  "path": [
+                    "alerts"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "post alert",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"patientId\": 1,\r\n    \"alertType\": \"LOW_OXYGEN\",\r\n    \"severity\": \"HIGH\",\r\n    \"message\": \"Nivel de saturación está por debajo del umbral esperado\",\r\n    \"status\": \"OPEN\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{clinicalBaseUrl}}/alerts",
+                  "host": [
+                    "{{clinicalBaseUrl}}"
+                  ],
+                  "path": [
+                    "alerts"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bff",
+      "item": [
+        {
+          "name": "patients",
+          "item": [
+            {
+              "name": "bff post patient",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"clinicalIdentifier\": \"{{CLINICALID}}\",\r\n    \"room\": \"{{ROOMCODE}}\",\r\n    \"status\": \"STABLE\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{bffBaseUrl}}/patients",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "patients"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get patients",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{bffBaseUrl}}/patients",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "patients"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get patient by id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{bffBaseUrl}}/patients/2",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "patients",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update patient",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"clinicalIdentifier\": \"{{CLINICALID}}\",\r\n    \"room\": \"{{ROOMCODE}}\",\r\n    \"status\": \"STABLE\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{bffBaseUrl}}/patients/3",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "patients",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete patient",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{bffBaseUrl}}/patients/3",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "patients",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "vitals",
+          "item": [
+            {
+              "name": "post vitals",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"patientId\": 1,\r\n    \"heartRate\": 98,\r\n    \"oxygenSaturation\": 99,\r\n    \"temperature\": 37.5,\r\n    \"systolicPressure\": 144,\r\n    \"diastolicPressure\": 89\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{bffBaseUrl}}/vital-signs",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "vital-signs"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get vitals",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"clinicalIdentifier\": \"{{CLINICALID}}\",\r\n    \"room\": \"{{ROMID}}\",\r\n    \"status\": \"CRITICAL\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{bffBaseUrl}}/vital-signs",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "vital-signs"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get vitals by id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{bffBaseUrl}}/vital-signs/2",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "vital-signs",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get vitals by patient id",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"patientId\": 3,\r\n    \"heartRate\": 100,\r\n    \"oxygenSaturation\": 100,\r\n    \"temperature\": 35.5,\r\n    \"systolicPressure\": 134,\r\n    \"diastolicPressure\": 86\r\n}"
+                },
+                "url": {
+                  "raw": "{{bffBaseUrl}}/vital-signs/patient/1",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "vital-signs",
+                    "patient",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete vitals",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{bffBaseUrl}}/vital-signs/2",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "vital-signs",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "alerts",
+          "item": [
+            {
+              "name": "post alert",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"patientId\": 2,\r\n    \"alertType\": \"LOW_SYSTOLIC\",\r\n    \"severity\": \"HIGH\",\r\n    \"message\": \"Presión sistólica baja\",\r\n    \"status\": \"OPEN\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{bffBaseUrl}}/alerts",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "alerts"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get alerts",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"fullName\": \"{{$randomFullName}}\",\r\n    \"clinicalIdentifier\": \"{{CLINICALID}}\",\r\n    \"room\": \"{{ROMID}}\",\r\n    \"status\": \"CRITICAL\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{bffBaseUrl}}/alerts",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "alerts"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get alert by id",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"patientId\": 1,\r\n    \"alertType\": \"LOW_OXYGEN\",\r\n    \"severity\": \"HIGH\",\r\n    \"message\": \"Nivel de saturación está por debajo del umbral esperado\",\r\n    \"status\": \"OPEN\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{bffBaseUrl}}/alerts/2",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get alert by patient",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{bffBaseUrl}}/alerts/patient/2",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    "patient",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update alert",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"patientId\": 2,\r\n    \"alertType\": \"LOW_SYSTOLIC\",\r\n    \"severity\": \"HIGH\",\r\n    \"message\": \"Presión sistólica baja\",\r\n    \"status\": \"CLOSED\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{bffBaseUrl}}/alerts/2",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete alert",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"patientId\": 2,\r\n    \"alertType\": \"LOW_SYSTOLIC\",\r\n    \"severity\": \"HIGH\",\r\n    \"message\": \"Presión sistólica baja\",\r\n    \"status\": \"CLOSED\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{bffBaseUrl}}/alerts/2",
+                  "host": [
+                    "{{bffBaseUrl}}"
+                  ],
+                  "path": [
+                    "alerts",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "if (pm.request.method === \"GET\" || pm.request.method === \"DELETE\") {\r",
+          "    return;\r",
+          "}\r",
+          "\r",
+          "if (!pm.request.url.getPath().includes(\"patients\")) {\r",
+          "    return;\r",
+          "}\r",
+          "\r",
+          "const randomNumber = Math.floor(Math.random() * 999) + 1;\r",
+          "\r",
+          "const withZeros = String(randomNumber).padStart(3, '0');\r",
+          "\r",
+          "const clinicalId = `PAC-${withZeros}`;\r",
+          "\r",
+          "pm.variables.set(\"CLINICALID\", clinicalId);\r",
+          "\r",
+          "const requestBody = JSON.parse(pm.request.body.raw);\r",
+          "\r",
+          "let room;\r",
+          "if (requestBody.status === \"CRITICAL\") {\r",
+          "    room = `UCI-${withZeros}`;\r",
+          "} else {\r",
+          "    room = `RM-${withZeros}`;\r",
+          "}\r",
+          "\r",
+          "pm.variables.set(\"ROOMCODE\", room); "
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "patientsBaseUrl",
+      "value": ""
+    },
+    {
+      "key": "clinicalBaseUrl",
+      "value": ""
+    },
+    {
+      "key": "bffBaseUrl",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
