@@ -1,0 +1,19 @@
+{
+	"properties": [
+		{
+			"name": "services.patients.baseUrl",
+			"type": "java.lang.String",
+			"description": "Base URL for Patients microservice."
+		},
+		{
+			"name": "services.clinical.baseUrl",
+			"type": "java.lang.String",
+			"description": "Base URL for Clinical microservice."
+		},
+		{
+			"name": "server.port",
+			"type": "java.lang.Integer",
+			"description": "Port for the BFF application to run on."
+		}
+	]
+}
