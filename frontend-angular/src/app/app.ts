@@ -75,8 +75,17 @@ export class AppComponent implements OnInit {
   }
 
   logout(): void {
+    const account =
+      this.msalService.instance.getActiveAccount() ?? this.msalService.instance.getAllAccounts()[0];
+
     localStorage.removeItem('medical_alerts_access_token');
-    this.msalService.logoutRedirect();
+    this.accessToken = '';
+    this.account = null;
+
+    this.msalService.logoutRedirect({
+      account,
+      postLogoutRedirectUri: 'http://localhost:4200',
+    });
   }
 
   requestApiToken(): void {
