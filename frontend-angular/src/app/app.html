@@ -1,0 +1,45 @@
+<main class="page">
+  <section class="card">
+    <h1>Medical Alerts System</h1>
+    <p>Azure AD B2C + Angular + Spring Boot BFF</p>
+
+    <div class="actions">
+      <button type="button" (click)="login()">Login with Azure</button>
+      <button type="button" (click)="logout()">Logout</button>
+      <button type="button" (click)="getToken()">Get access token</button>
+      <button type="button" (click)="loadPatients()">Load patients from BFF</button>
+    </div>
+
+    <section>
+      <h2>Session</h2>
+
+      <p *ngIf="account; else notAuthenticated">
+        Authenticated as:
+        <strong>{{ userDisplayName }}</strong>
+      </p>
+
+      <ng-template #notAuthenticated>
+        <p>Not authenticated</p>
+      </ng-template>
+    </section>
+    <button type="button" (click)="requestApiToken()">Request API token</button>
+    <section>
+      <h2>Access Token</h2>
+
+      <p *ngIf="accessToken">
+        Token saved in localStorage as
+        <code>medical_alerts_access_token</code>
+      </p>
+
+      <textarea *ngIf="accessToken" readonly rows="6" [value]="accessToken"></textarea>
+    </section>
+
+    <section>
+      <h2>BFF Patients Response</h2>
+
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+      <pre>{{ patients | json }}</pre>
+    </section>
+  </section>
+</main>
