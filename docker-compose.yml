@@ -29,7 +29,7 @@ services:
 
   backend-bff:
     build:
-      context: ./backend-bff
+      context: ./medical-system-bff
       dockerfile: Dockerfile
     container_name: backend-bff
     restart: unless-stopped
