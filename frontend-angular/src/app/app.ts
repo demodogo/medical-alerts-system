@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
 import { AccountInfo } from '@azure/msal-browser';
 import { azureB2cConfig } from './core/auth/auth-config';
@@ -8,7 +9,7 @@ import { PatientsService } from './core/services/patients';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
@@ -25,8 +26,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.msalService.instance.handleRedirectPromise().then((result) => {
-      console.log('MSAL REDIRECT RESULT:', result);
-
       if (result?.account) {
         this.account = result.account;
         this.msalService.instance.setActiveAccount(result.account);
@@ -40,10 +39,7 @@ export class AppComponent implements OnInit {
       }
 
       if (result?.accessToken) {
-        console.log('REDIRECT ACCESS TOKEN LENGTH:', result.accessToken.length);
-
         this.accessToken = result.accessToken;
-        localStorage.setItem('medical_alerts_access_token', result.accessToken);
       }
     });
   }
@@ -72,15 +68,12 @@ export class AppComponent implements OnInit {
   }
 
   logout(): void {
-    console.log('LOGIN SCOPE:', azureB2cConfig.apiScope);
     this.msalService.loginRedirect({
       scopes: [azureB2cConfig.apiScope],
     });
   }
 
   requestApiToken(): void {
-    console.log('REQUESTING API TOKEN WITH SCOPE:', azureB2cConfig.apiScope);
-
     this.msalService.acquireTokenRedirect({
       scopes: [azureB2cConfig.apiScope],
     });
@@ -92,9 +85,7 @@ export class AppComponent implements OnInit {
     const storedToken = localStorage.getItem('medical_alerts_access_token');
 
     if (storedToken) {
-      console.log('USING STORED TOKEN LENGTH:', storedToken.length);
-
-      this.patientsService.findAllWithToken(storedToken).subscribe({
+      this.patientsService.findAll(storedToken).subscribe({
         next: (patients) => {
           this.patients = patients;
         },
@@ -114,8 +105,6 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    console.log('ACQUIRING TOKEN SILENT WITH SCOPE:', azureB2cConfig.apiScope);
-
     this.msalService
       .acquireTokenSilent({
         account,
@@ -123,9 +112,6 @@ export class AppComponent implements OnInit {
       })
       .subscribe({
         next: (result) => {
-          console.log('MSAL TOKEN RESULT:', result);
-          console.log('ACCESS TOKEN LENGTH:', result.accessToken?.length);
-
           if (!result.accessToken) {
             this.errorMessage = 'MSAL did not return an access token';
             return;
@@ -134,7 +120,7 @@ export class AppComponent implements OnInit {
           this.accessToken = result.accessToken;
           localStorage.setItem('medical_alerts_access_token', result.accessToken);
 
-          this.patientsService.findAllWithToken(result.accessToken).subscribe({
+          this.patientsService.findAll(result.accessToken).subscribe({
             next: (patients) => {
               this.patients = patients;
             },

@@ -1,30 +1,30 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Patient, PatientRequest } from '../../shared/models/patient.model';
+import { VitalSign, VitalSignRequest } from '../../shared/models/vital-sign.model';
 import { azureB2cConfig } from '../auth/auth-config';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PatientsService {
-  private readonly apiUrl = `${azureB2cConfig.apiBaseUrl}/patients`;
+export class VitalSignsService {
+  private readonly apiUrl = `${azureB2cConfig.apiBaseUrl}/vital-signs`;
 
   constructor(private readonly http: HttpClient) {}
 
   findAll(accessToken: string) {
-    return this.http.get<Patient[]>(this.apiUrl, {
+    return this.http.get<VitalSign[]>(this.apiUrl, {
       headers: this.createHeaders(accessToken),
     });
   }
 
-  create(request: PatientRequest, accessToken: string) {
-    return this.http.post<Patient>(this.apiUrl, request, {
+  create(request: VitalSignRequest, accessToken: string) {
+    return this.http.post<VitalSign>(this.apiUrl, request, {
       headers: this.createHeaders(accessToken),
     });
   }
 
-  update(id: number, request: PatientRequest, accessToken: string) {
-    return this.http.put<Patient>(`${this.apiUrl}/${id}`, request, {
+  update(id: number, request: VitalSignRequest, accessToken: string) {
+    return this.http.put<VitalSign>(`${this.apiUrl}/${id}`, request, {
       headers: this.createHeaders(accessToken),
     });
   }

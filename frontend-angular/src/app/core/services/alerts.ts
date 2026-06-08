@@ -1,30 +1,30 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Patient, PatientRequest } from '../../shared/models/patient.model';
+import { MedicalAlert, MedicalAlertRequest } from '../../shared/models/alert.model';
 import { azureB2cConfig } from '../auth/auth-config';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PatientsService {
-  private readonly apiUrl = `${azureB2cConfig.apiBaseUrl}/patients`;
+export class AlertsService {
+  private readonly apiUrl = `${azureB2cConfig.apiBaseUrl}/alerts`;
 
   constructor(private readonly http: HttpClient) {}
 
   findAll(accessToken: string) {
-    return this.http.get<Patient[]>(this.apiUrl, {
+    return this.http.get<MedicalAlert[]>(this.apiUrl, {
       headers: this.createHeaders(accessToken),
     });
   }
 
-  create(request: PatientRequest, accessToken: string) {
-    return this.http.post<Patient>(this.apiUrl, request, {
+  create(request: MedicalAlertRequest, accessToken: string) {
+    return this.http.post<MedicalAlert>(this.apiUrl, request, {
       headers: this.createHeaders(accessToken),
     });
   }
 
-  update(id: number, request: PatientRequest, accessToken: string) {
-    return this.http.put<Patient>(`${this.apiUrl}/${id}`, request, {
+  update(id: number, request: MedicalAlertRequest, accessToken: string) {
+    return this.http.put<MedicalAlert>(`${this.apiUrl}/${id}`, request, {
       headers: this.createHeaders(accessToken),
     });
   }
