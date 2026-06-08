@@ -36,8 +36,8 @@ services:
     ports:
       - '8080:8080'
     environment:
-      PATIENTS_SERVICE_URL: http://patients-ms:8081
-      CLINICAL_SERVICE_URL: http://clinical-ms:8082
+      SERVICES_PATIENTS_BASE_URL: http://patients-ms:8081/api
+      SERVICES_CLINICAL_BASE_URL: http://clinical-ms:8082/api
       JWT_ISSUER_URI: ${JWT_ISSUER_URI}
       JWT_JWK_SET_URI: ${JWT_JWK_SET_URI}
     depends_on:
