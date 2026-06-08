@@ -14,61 +14,61 @@ import cl.duoc.dsy2206.patients.repository.PatientRepository;
 @Service
 public class PatientService {
 
- private final PatientRepository patientRepository;
+  private final PatientRepository patientRepository;
 
- public PatientService(PatientRepository patientRepository) {
-  this.patientRepository = patientRepository;
- }
-
- public List<PatientResponse> findAll() {
-  return patientRepository.findAll().stream().map(PatientResponse::fromEntity).toList();
- }
-
- public PatientResponse findById(Long id) {
-  Patient patient = getPatientOrThrow(id);
-  return PatientResponse.fromEntity(patient);
- }
-
- public PatientResponse create(PatientRequest request) {
-  if (patientRepository.existsByClinicalIdentifier(request.getClinicalIdentifier())) {
-   throw new IllegalArgumentException("Clinical identifier already exists");
+  public PatientService(PatientRepository patientRepository) {
+    this.patientRepository = patientRepository;
   }
 
-  Patient patient = new Patient();
-  patient.setFullName(request.getFullName());
-  patient.setClinicalIdentifier(request.getClinicalIdentifier());
-  patient.setRoom(request.getRoom());
-  patient.setStatus(request.getStatus() != null ? request.getStatus() : PatientStatus.CRITICAL);
-
-  Patient savedPatient = patientRepository.save(patient);
-
-  return PatientResponse.fromEntity(savedPatient);
- }
-
- public PatientResponse update(Long id, PatientRequest request) {
-  Patient patient = getPatientOrThrow(id);
-
-  if (patientRepository.existsByClinicalIdentifierAndIdNot(request.getClinicalIdentifier(), id)) {
-   throw new IllegalArgumentException("Clinical identifier already exists");
+  public List<PatientResponse> findAll() {
+    return patientRepository.findAll().stream().map(PatientResponse::fromEntity).toList();
   }
 
-  patient.setFullName(request.getFullName());
-  patient.setClinicalIdentifier(request.getClinicalIdentifier());
-  patient.setRoom(request.getRoom());
-  patient.setStatus(request.getStatus() != null ? request.getStatus() : patient.getStatus());
+  public PatientResponse findById(Long id) {
+    Patient patient = getPatientOrThrow(id);
+    return PatientResponse.fromEntity(patient);
+  }
 
-  Patient updatedPatient = patientRepository.save(patient);
+  public PatientResponse create(PatientRequest request) {
+    if (patientRepository.existsByClinicalIdentifier(request.getClinicalIdentifier())) {
+      throw new IllegalArgumentException("Id clínico duplicado");
+    }
 
-  return PatientResponse.fromEntity(updatedPatient);
- }
+    Patient patient = new Patient();
+    patient.setFullName(request.getFullName());
+    patient.setClinicalIdentifier(request.getClinicalIdentifier());
+    patient.setRoom(request.getRoom());
+    patient.setStatus(request.getStatus() != null ? request.getStatus() : PatientStatus.CRITICAL);
 
- public void delete(Long id) {
-  Patient patient = getPatientOrThrow(id);
-  patientRepository.delete(patient);
- }
+    Patient savedPatient = patientRepository.save(patient);
 
- private Patient getPatientOrThrow(Long id) {
-  return patientRepository.findById(id)
-    .orElseThrow(() -> new ResourceNotFoundException("Patient not found with id: " + id));
- }
+    return PatientResponse.fromEntity(savedPatient);
+  }
+
+  public PatientResponse update(Long id, PatientRequest request) {
+    Patient patient = getPatientOrThrow(id);
+
+    if (patientRepository.existsByClinicalIdentifierAndIdNot(request.getClinicalIdentifier(), id)) {
+      throw new IllegalArgumentException("Id clínico duplicado");
+    }
+
+    patient.setFullName(request.getFullName());
+    patient.setClinicalIdentifier(request.getClinicalIdentifier());
+    patient.setRoom(request.getRoom());
+    patient.setStatus(request.getStatus() != null ? request.getStatus() : patient.getStatus());
+
+    Patient updatedPatient = patientRepository.save(patient);
+
+    return PatientResponse.fromEntity(updatedPatient);
+  }
+
+  public void delete(Long id) {
+    Patient patient = getPatientOrThrow(id);
+    patientRepository.delete(patient);
+  }
+
+  private Patient getPatientOrThrow(Long id) {
+    return patientRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Paciente no encontrado"));
+  }
 }
