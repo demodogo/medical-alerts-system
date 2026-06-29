@@ -43,3 +43,36 @@ services:
     depends_on:
       - patients-ms
       - clinical-ms
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      RABBITMQ_DEFAULT_USER: medical_user
+      RABBITMQ_DEFAULT_PASS: medical_pass
+    volumes:
+      - ./rabbitmq-data:/var/lib/rabbitmq
+
+  vital-signs-producer-ms:
+    build:
+      context: ./vital-signs-producer-ms
+      dockerfile: Dockerfile
+    container_name: vital-signs-producer-ms
+    restart: unless-stopped
+    ports:
+      - '8091:8091'
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      SERVER_PORT: 8091
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: medical_user
+      RABBITMQ_PASSWORD: medical_pass
+    depends_on:
+      - rabbitmq
+
+  volumes:
+    rabbitmq-data:
