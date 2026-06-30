@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "cfcf2fc0-9a67-4f48-afc4-197c658cfab1",
+    "_postman_id": "4c0b70f8-bcf4-4e6b-b7a9-68ecb338066d",
     "name": "cloud native",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "31766189"
+    "_exporter_id": "26465629"
   },
   "item": [
     {
@@ -674,6 +674,176 @@
               "response": []
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "vital-signs-producer",
+      "item": [
+        {
+          "name": "send vs producer critical",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"patientId\":1,\"heartRate\":135,\"oxygenSaturation\":86,\"temperature\":38.9,\"systolicPressure\":150,\"diastolicPressure\":95}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8091/api/device-readings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "api",
+                "device-readings"
+              ]
+            },
+            "description": "Generated from cURL: curl.exe -X POST http://localhost:8091/api/device-readings `\r\n  -H \"Content-Type: application/json\" `\r\n  -d \"{\\\"patientId\\\":1,\\\"heartRate\\\":135,\\\"oxygenSaturation\\\":86,\\\"temperature\\\":38.9,\\\"systolicPressure\\\":150,\\\"diastolicPressure\\\":95}\""
+          },
+          "response": []
+        },
+        {
+          "name": "send vs producer normal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"patientId\":1,\"heartRate\":80,\"oxygenSaturation\":98,\"temperature\":36.7,\"systolicPressure\":120,\"diastolicPressure\":80}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8091/api/device-readings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "api",
+                "device-readings"
+              ]
+            },
+            "description": "Generated from cURL: curl.exe -X POST http://localhost:8091/api/device-readings `\r\n  -H \"Content-Type: application/json\" `\r\n  -d \"{\\\"patientId\\\":1,\\\"heartRate\\\":80,\\\"oxygenSaturation\\\":98,\\\"temperature\\\":36.7,\\\"systolicPressure\\\":120,\\\"diastolicPressure\\\":80}\""
+          },
+          "response": []
+        },
+        {
+          "name": "health",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "alerts-oracle-consumer",
+      "item": [
+        {
+          "name": "health",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "processed alerts",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "post alert from consumer",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "update alert",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "delete alert",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "files-consumer",
+      "item": [
+        {
+          "name": "health",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "get files",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "summary-producer",
+      "item": [
+        {
+          "name": "health",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "publish summary",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
         }
       ]
     }
