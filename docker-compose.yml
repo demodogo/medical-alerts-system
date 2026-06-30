@@ -113,5 +113,22 @@ services:
       - ./generated-alerts:/app/generated-alerts
     depends_on:
       - rabbitmq
+
+  summary-producer-ms:
+    build:
+      context: ./summary-producer-ms
+      dockerfile: Dockerfile
+    container_name: summary-producer-ms
+    restart: unless-stopped
+    ports:
+      - '8092:8092'
+    environment:
+      SERVER_PORT: 8092
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: medical_user
+      RABBITMQ_PASSWORD: medical_pass
+    depends_on:
+      - rabbitmq
 volumes:
   rabbitmq-data:
