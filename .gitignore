@@ -22,3 +22,5 @@ dist/
 .angular/
 
 backend-bff
+
+rabbitmq-data/*
