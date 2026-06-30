@@ -74,5 +74,44 @@ services:
     depends_on:
       - rabbitmq
 
-  volumes:
-    rabbitmq-data:
+  alert-oracle-consumer-ms:
+    build:
+      context: ./alert-oracle-consumer-ms
+      dockerfile: Dockerfile
+    container_name: alert-oracle-consumer-ms
+    restart: unless-stopped
+    ports:
+      - '8093:8093'
+    environment:
+      SERVER_PORT: 8093
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: medical_user
+      RABBITMQ_PASSWORD: medical_pass
+      DB_URL: jdbc:oracle:thin:@(description=(retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.sa-santiago-1.oraclecloud.com))(connect_data=(service_name=g0ddbc20063f039_duocmedicalsystemdb_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+      DB_USERNAME: ADMIN
+      DB_PASSWORD: Claveduocmedical123
+    depends_on:
+      - rabbitmq
+
+  alert-file-consumer-ms:
+    build:
+      context: ./alert-file-consumer-ms
+      dockerfile: Dockerfile
+    container_name: alert-file-consumer-ms
+    restart: unless-stopped
+    ports:
+      - '8094:8094'
+    environment:
+      SERVER_PORT: 8094
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: medical_user
+      RABBITMQ_PASSWORD: medical_pass
+      ALERT_FILES_OUTPUT_DIR: /app/generated-alerts
+    volumes:
+      - ./generated-alerts:/app/generated-alerts
+    depends_on:
+      - rabbitmq
+volumes:
+  rabbitmq-data:

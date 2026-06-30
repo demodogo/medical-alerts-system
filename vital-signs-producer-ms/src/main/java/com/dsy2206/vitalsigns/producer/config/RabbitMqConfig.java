@@ -70,6 +70,4 @@ public class RabbitMqConfig {
   return RetryInterceptorBuilder.stateless().maxRetries(3)
     .recoverer(new RejectAndDontRequeueRecoverer()).build();
  }
-
-
 }
