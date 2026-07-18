@@ -112,6 +112,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+  
   kafka-init:
       image: confluentinc/cp-kafka:7.6.1
       container_name: kafka-init
@@ -156,6 +157,7 @@ services:
             --bootstrap-server kafka-1:9092 \
             --describe \
             --topic alertas
+  
   kafka-vital-signs-producer-ms:
     build:
       context: ./kafka-vital-signs-producer-ms
@@ -172,7 +174,26 @@ services:
     depends_on:
       kafka-init:
         condition: service_completed_successfully
-      
+
+  kafka-vital-signs-processor-ms:
+    build:
+      context: ./kafka-vital-signs-processor-ms
+      dockerfile: Dockerfile
+    container_name: kafka-vital-signs-processor-ms
+    restart: unless-stopped
+    ports:
+      - "8096:8096"
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
+      SPRING_KAFKA_CONSUMER_GROUP_ID: vital-signs-processor-group
+      SPRING_KAFKA_CONSUMER_AUTO_OFFSET_RESET: latest
+      APP_KAFKA_TOPICS_VITAL_SIGNS: senales_vitales
+      APP_KAFKA_TOPICS_ALERTS: alertas
+      SERVER_PORT: 8096
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully   
+  
   kafka-ui:
     image: provectuslabs/kafka-ui:v0.7.2
     container_name: kafka-ui
