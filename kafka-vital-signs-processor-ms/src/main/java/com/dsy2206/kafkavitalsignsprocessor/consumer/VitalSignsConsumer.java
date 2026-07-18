@@ -23,6 +23,10 @@ public class VitalSignsConsumer{
         groupId = "${spring.kafka.consumer.group-id}",
         concurrency = "3")
     public void consume(VitalSignsEvent event) {
+        if (event == null) {
+            LOGGER.warn("Ignoring an invalid vital-sign event");
+            return;
+        }
         LOGGER.info("Consumiendo evento de signos vitales con id: {}, y con patientId: {}", event.eventId(), event.patientId());
         processor.process(event);
     }
