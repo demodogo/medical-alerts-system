@@ -156,6 +156,23 @@ services:
             --bootstrap-server kafka-1:9092 \
             --describe \
             --topic alertas
+  kafka-vital-signs-producer-ms:
+    build:
+      context: ./kafka-vital-signs-producer-ms
+      dockerfile: Dockerfile
+    container_name: kafka-vital-signs-producer-ms
+    restart: unless-stopped
+    ports:
+      - "8095:8095"
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
+      APP_KAFKA_TOPICS_VITAL_SIGNS: senales_vitales
+      APP_VITAL_SIGNS_GENERATION_INTERVAL_MS: 1000
+      SERVER_PORT: 8095
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+      
   kafka-ui:
     image: provectuslabs/kafka-ui:v0.7.2
     container_name: kafka-ui
