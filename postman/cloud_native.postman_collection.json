@@ -692,7 +692,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\"patientId\":1,\"heartRate\":135,\"oxygenSaturation\":86,\"temperature\":38.9,\"systolicPressure\":150,\"diastolicPressure\":95}",
+              "raw": "{\r\n    \"patientId\": 48494515156,\r\n    \"heartRate\": 132,\r\n    \"oxygenSaturation\": 85,\r\n    \"temperature\": 39.2,\r\n    \"systolicPressure\": 151,\r\n    \"diastolicPressure\": 96\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -727,7 +727,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\"patientId\":1,\"heartRate\":80,\"oxygenSaturation\":98,\"temperature\":36.7,\"systolicPressure\":120,\"diastolicPressure\":80}",
+              "raw": "{\r\n    \"patientId\": 1,\r\n    \"heartRate\": 80,\r\n    \"oxygenSaturation\": 98,\r\n    \"temperature\": 36.7,\r\n    \"systolicPressure\": 120,\r\n    \"diastolicPressure\": 80\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -754,7 +754,20 @@
           "name": "health",
           "request": {
             "method": "GET",
-            "header": []
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8091/api/device-readings/health-check",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "api",
+                "device-readings",
+                "health-check"
+              ]
+            }
           },
           "response": []
         }
@@ -767,7 +780,20 @@
           "name": "health",
           "request": {
             "method": "GET",
-            "header": []
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8093/api/processed-alerts/health-check",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8093",
+              "path": [
+                "api",
+                "processed-alerts",
+                "health-check"
+              ]
+            }
           },
           "response": []
         },
@@ -775,12 +801,327 @@
           "name": "processed alerts",
           "request": {
             "method": "GET",
-            "header": []
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8093/api/processed-alerts",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8093",
+              "path": [
+                "api",
+                "processed-alerts"
+              ]
+            }
           },
           "response": []
         },
         {
           "name": "post alert from consumer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"patientId\": 2,\r\n    \"heartRate\": 130,\r\n    \"oxygenSaturation\": 88,\r\n    \"temperature\": 39.1,\r\n    \"systolicPressure\": 145,\r\n    \"diastolicPressure\": 92\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8091/api/device-readings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8091",
+              "path": [
+                "api",
+                "device-readings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update alert",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"severity\": \"REVIEWED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8093/api/processed-alerts/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8093",
+              "path": [
+                "api",
+                "processed-alerts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete alert",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8093/api/processed-alerts/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8093",
+              "path": [
+                "api",
+                "processed-alerts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "files-consumer",
+      "item": [
+        {
+          "name": "health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8094/api/generated-alert-files/health-check",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8094",
+              "path": [
+                "api",
+                "generated-alert-files",
+                "health-check"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get files",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8094/api/generated-alert-files",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8094",
+              "path": [
+                "api",
+                "generated-alert-files"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "summary-producer",
+      "item": [
+        {
+          "name": "health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8092/api/summaries/health-check",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8092",
+              "path": [
+                "api",
+                "summaries",
+                "health-check"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "publish summary",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"patientId\": 88877999,\r\n    \"averageHeartRate\": 92,\r\n    \"averageOxygenSaturation\": 100,\r\n    \"averageTemperature\": 36.8,\r\n    \"averageSystolicPressure\": 121,\r\n    \"averageDiastolicPressure\": 79,\r\n    \"periodDescription\": \"Resumen manual de prueba para video\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8092/api/summaries/publish",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8092",
+              "path": [
+                "api",
+                "summaries",
+                "publish"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "kafka",
+      "item": [
+        {
+          "name": "listar alertas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8097/api/alerts",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8097",
+              "path": [
+                "api",
+                "alerts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list por paciente",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8097/api/alerts/patient/1001",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8097",
+              "path": [
+                "api",
+                "alerts",
+                "patient",
+                "1001"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "crear alerta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"exCreatedAlertId\", responseData.id);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceEventId\": \"11111111-1111-1111-1111-111111111111\",\n  \"patientId\": 9999,\n  \"anomalyType\": \"TEMPERATURE_HIGH\",\n  \"measuredValue\": 39.5,\n  \"minimumThreshold\": 36.1,\n  \"maximumThreshold\": 37.5,\n  \"detectedAt\": \"2026-07-19T05:00:00Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8097/api/alerts",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8097",
+              "path": [
+                "api",
+                "alerts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get by id (just created)",
           "request": {
             "method": "GET",
             "header": []
@@ -796,49 +1137,7 @@
           "response": []
         },
         {
-          "name": "delete alert",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "files-consumer",
-      "item": [
-        {
-          "name": "health",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": []
-        },
-        {
-          "name": "get files",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "summary-producer",
-      "item": [
-        {
-          "name": "health",
-          "request": {
-            "method": "GET",
-            "header": []
-          },
-          "response": []
-        },
-        {
-          "name": "publish summary",
+          "name": "delete alerta",
           "request": {
             "method": "GET",
             "header": []
@@ -922,6 +1221,10 @@
     },
     {
       "key": "accessToken",
+      "value": ""
+    },
+    {
+      "key": "exCreatedAlertId",
       "value": ""
     }
   ]

@@ -194,6 +194,27 @@ services:
       kafka-init:
         condition: service_completed_successfully   
   
+  kafka-alert-oracle-consumer-ms:
+    build:
+      context: ./kafka-alert-oracle-consumer-ms
+      dockerfile: Dockerfile
+    container_name: kafka-alert-oracle-consumer-ms
+    restart: unless-stopped
+    ports:
+      - "8097:8097"
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
+      SPRING_KAFKA_CONSUMER_GROUP_ID: alert-oracle-consumer-group
+      SPRING_KAFKA_CONSUMER_AUTO_OFFSET_RESET: latest
+      APP_KAFKA_TOPICS_ALERTS: alertas
+      SERVER_PORT: 8097
+      DB_URL: ${DB_URL}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+  
   kafka-ui:
     image: provectuslabs/kafka-ui:v0.7.2
     container_name: kafka-ui
