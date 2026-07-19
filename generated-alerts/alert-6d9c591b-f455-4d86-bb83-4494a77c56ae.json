@@ -1,0 +1,14 @@
+{
+  "eventId" : "6d9c591b-f455-4d86-bb83-4494a77c56ae",
+  "patientId" : 1,
+  "alertType" : "LOW_OXYGEN",
+  "severity" : "CRITICAL",
+  "message" : "La saturación de oxígeno está por debajo del umbral mínimo de seguridad.",
+  "heartRate" : 145,
+  "oxygenSaturation" : 85,
+  "temperature" : 39.5,
+  "systolicPressure" : 180,
+  "diastolicPressure" : 110,
+  "sourceCreatedAt" : [ 2026, 7, 19, 10, 50, 59, 682033671 ],
+  "fileGeneratedAt" : [ 2026, 7, 19, 10, 50, 59, 686164269 ]
+}
