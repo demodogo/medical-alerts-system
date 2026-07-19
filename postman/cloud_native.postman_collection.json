@@ -1124,23 +1124,90 @@
           "name": "get by id (just created)",
           "request": {
             "method": "GET",
-            "header": []
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8097/api/alerts/{{exCreatedAlertId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8097",
+              "path": [
+                "api",
+                "alerts",
+                "{{exCreatedAlertId}}"
+              ]
+            }
           },
           "response": []
         },
         {
           "name": "update alert",
           "request": {
-            "method": "GET",
-            "header": []
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sourceEventId\": \"11111111-1111-1111-1111-111111111111\",\n  \"patientId\": 9999,\n  \"anomalyType\": \"TEMPERATURE_HIGH_UPDATED\",\n  \"measuredValue\": 40.1,\n  \"minimumThreshold\": 36.1,\n  \"maximumThreshold\": 37.5,\n  \"detectedAt\": \"2026-07-19T05:05:00Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8097/api/alerts/{{exCreatedAlertId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8097",
+              "path": [
+                "api",
+                "alerts",
+                "{{exCreatedAlertId}}"
+              ]
+            }
           },
           "response": []
         },
         {
           "name": "delete alerta",
           "request": {
-            "method": "GET",
-            "header": []
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8097/api/alerts/{{exCreatedAlertId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8097",
+              "path": [
+                "api",
+                "alerts",
+                "{{exCreatedAlertId}}"
+              ]
+            }
           },
           "response": []
         }
